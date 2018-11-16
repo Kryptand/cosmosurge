@@ -1,0 +1,18 @@
+<div class="center">
+
+  <ng-container *ngIf="elementCount===0" @ngIfAnimation>
+  <mat-icon>{{areaIcon}}</mat-icon>
+  <div class="area-text">{{areaName}} Auswählen</div>
+  <div class="area-actions">
+  </div>
+</ng-container>
+<ng-container *ngIf="elementCount===1" @ngIfAnimation>
+
+</ng-container>
+<ng-container *ngIf="elementCount>1" @ngIfAnimation>
+    <mat-icon>{{areaIcon}}</mat-icon>
+    <div class="area-text">{{elementCount}} - {{areaName}} ausgewählt.</div>
+    <div class="area-actions">
+    </div>
+</ng-container>
+</div>

@@ -1,0 +1,57 @@
+<form [formGroup]="authenticationForm" (ngSubmit)="onSubmit()">
+	<div class="field">
+		<div class="control">
+			<input
+				[class.is-danger]="
+					formValues.userName.invalid &&
+					(formValues.userName.dirty || formValues.userName.touched)
+				"
+				formControlName="userName"
+				placeholder="Benutzername"
+				class="input"
+				type="text"
+			/>
+			<p
+				*ngIf="
+					formValues.userName.invalid &&
+					(formValues.userName.dirty || formValues.userName.touched)
+				"
+				class=" help
+            is-danger"
+			>
+				Der Benutzername ist erforderlich.
+			</p>
+		</div>
+	</div>
+
+	<div class="field">
+		<div class="control">
+			<input
+				[class.is-danger]="
+					formValues.password.invalid &&
+					(formValues.password.dirty || formValues.password.touched)
+				"
+				formControlName="password"
+				placeholder="Passwort"
+				class="input"
+				type="password"
+			/>
+			<p
+				*ngIf="
+					formValues.password.invalid &&
+					(formValues.password.dirty || formValues.password.touched)
+				"
+				class="help is-danger"
+			>
+				Password is required
+			</p>
+		</div>
+	</div>
+	<div class="field">
+		<div class="control">
+			<button type="submit" class="button is-block is-info is-large is-fullwidth">
+				Login
+			</button>
+		</div>
+	</div>
+</form>

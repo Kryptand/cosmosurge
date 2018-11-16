@@ -1,0 +1,43 @@
+<ion-item>
+	<ion-label>Datum</ion-label>
+	<ion-datetime
+		formControlName="date"
+    display-format="MM/DD/YYYY"
+    [value]="selectedDate"
+	></ion-datetime>
+</ion-item>
+<ion-item *ngIf="nativeCameraActived">
+	<figure class="image is-128x128">
+		<ng-container>
+			<img
+				(click)="takePhoto()"
+				src="https://bulma.io/images/placeholders/128x128.png"
+			/>
+		</ng-container>
+	</figure>
+</ion-item>
+<ion-item *ngIf="!photo">
+	<ng-container >
+		<img src="https://bulma.io/images/placeholders/128x128.png" />
+	</ng-container>
+</ion-item>
+<ion-item *ngIf="photo">
+	<ng-container >
+		<img
+			[src]="photo"
+			height="128"
+			width="128"
+			alt="Patienten-Bild"
+			title="Patienten-Bild"
+		/>
+	</ng-container>
+</ion-item>
+<ion-item *ngIf="!nativeCameraActived">
+	<ng-container >
+		<div class="upload-btn-wrapper">
+			<ion-button size="small">Bild hochladen</ion-button>
+			<input type="file" (change)="onFileChanged($event)" />
+		</div>
+	</ng-container>
+</ion-item>
+<ion-button (click)="onSubmit($event)" size="small">Patient anlegen</ion-button>

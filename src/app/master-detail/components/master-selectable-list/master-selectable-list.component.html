@@ -1,0 +1,26 @@
+<!-- <cdk-virtual-scroll-viewport class="list-container list-group" itemSize="500" autosize> -->
+<!-- 
+    <table>
+      <tr>
+      
+      </tr>
+    </table>
+  </div>
+ -->
+<!-- </cdk-virtual-scroll-viewport> -->
+<mat-selection-list #selectedElements (selectionChange)="selectElement($event, selectedElements.selectedOptions.selected)">
+  <div class="disable-selection">
+    <table>
+      <tr *ngFor="let item of elements; let i = index">
+        <ng-container>
+          <mat-list-option [checkboxPosition]="'before'" [value]="item">
+            <ng-container *ngFor="let prop of displayedProperties">
+             <td> {{item[prop]}}</td>
+
+            </ng-container>
+          </mat-list-option>
+        </ng-container>
+      </tr>
+    </table>
+  </div>
+</mat-selection-list>

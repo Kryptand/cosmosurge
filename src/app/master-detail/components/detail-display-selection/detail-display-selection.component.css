@@ -1,0 +1,16 @@
+.center {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  justify-content: center;
+  flex-direction: column;
+}
+.center > mat-icon {
+  font-size: 20rem;
+  width: 20rem;
+  height: auto;
+  color: #cdcdcd;
+}
+:host {
+  background: #f8f8f8;
+}

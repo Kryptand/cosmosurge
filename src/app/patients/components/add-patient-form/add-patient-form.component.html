@@ -1,0 +1,23 @@
+<form (ngSubmit)="onSubmit($event)" [formGroup]="patientForm">
+  <ion-item>
+    <ion-input 	[class.error1]="
+    formValues.firstName.invalid &&
+    (formValues.firstName.dirty || formValues.firstName.touched)
+  " formControlName="firstName" required type="text" placeholder="Vorname"></ion-input>
+  </ion-item>
+  <ion-item no-lines *ngIf=" formValues.firstName.invalid &&
+  (formValues.firstName.dirty || formValues.firstName.touched)">
+    Bitte geben Sie einen Vornamen an.
+  </ion-item>
+  <ion-item>
+    <ion-input [class.error1]="
+    formValues.lastName.invalid &&
+    (formValues.lastName.dirty || formValues.lastName.touched)
+  " formControlName="lastName" required type="text" placeholder="Nachname"></ion-input>
+  </ion-item>
+  <ion-item no-lines *ngIf=" formValues.lastName.invalid &&
+  (formValues.lastName.dirty || formValues.lastName.touched)">
+    Bitte geben Sie einen Nachnamen an.
+  </ion-item>
+  <ion-button type="submit" [disabled]="patientForm.invalid" size="small">Patient anlegen</ion-button>
+</form>

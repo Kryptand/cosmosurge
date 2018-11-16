@@ -1,0 +1,8 @@
+<split [direction]="'horizontal'">
+	<split-area [visible]="masterVisible" size="30">
+		<ng-content select="rrsoftware-master-container"></ng-content>
+	</split-area>
+	<split-area [visible]="detailVisible" size="70">
+		<ng-content select="rrsoftware-detail-container"></ng-content>
+	</split-area>
+</split>

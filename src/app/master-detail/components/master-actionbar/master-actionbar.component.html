@@ -1,0 +1,31 @@
+<mat-toolbar class="disable-selection" color="primary">
+	<mat-checkbox>
+		<span>Third Line</span>
+	</mat-checkbox>
+	<span class="spacer"></span>
+	<button mat-icon-button >
+		<mat-icon>add_circle</mat-icon>
+	</button>
+	<button mat-icon-button disabled>
+		<mat-icon>delete</mat-icon>
+	</button>
+	<button mat-icon-button [matMenuTriggerFor]="menu">
+		<mat-icon>more_vert</mat-icon>
+	</button>
+	<mat-menu #menu="matMenu">
+		<button mat-menu-item *needsElements="2">
+			<mat-icon>voicemail</mat-icon>
+			<span>Check voicemail</span>
+		</button>
+		<button mat-menu-item *needsElements="2">
+			<mat-icon>notifications_off</mat-icon>
+			<span>Disable alerts</span>
+		</button>
+	</mat-menu>
+</mat-toolbar>
+<mat-toolbar color="secondary">
+	<mat-form-field class="full-width">
+		<input type="´text" matInput>
+		<mat-icon matSuffix>search</mat-icon>
+	</mat-form-field>
+</mat-toolbar>
