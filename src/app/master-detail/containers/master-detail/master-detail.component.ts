@@ -30,10 +30,9 @@ import * as fromMasterDetail from '../../state/master-detail.reducer';
  * @implements {OnDestroy}
  */
 @Component({
-	selector: 'rrsoftware-master-detail',
+	selector: 'kryptand-master-detail',
 	templateUrl: './master-detail.component.html',
 	styleUrls: ['./master-detail.component.css'],
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MasterDetailComponent implements OnInit, OnDestroy {
 	public selectedElements$: Observable<number>;
@@ -64,8 +63,7 @@ export class MasterDetailComponent implements OnInit, OnDestroy {
 		this.orchestrateSelection();
 	}
 	public ngOnDestroy(): void {
-		this.viewportSubscription.unsubscribe();
-		this.elementCountSubscription.unsubscribe();
+
 	}
 
 	/**
@@ -78,23 +76,10 @@ export class MasterDetailComponent implements OnInit, OnDestroy {
 	public orchestrateSelection(): void {
 		this.elementCountSubscription = this.selectedElements$.subscribe(
 			count => {
-				console.debug(count);
 				this.elementCount = count;
 			},
-			err => console.debug(err)
+			err => console.error(err)
 		);
-		this.viewportSubscription = this.breakpointObserver
-			.observe([Breakpoints.Small, Breakpoints.HandsetPortrait])
-			.subscribe((state: BreakpointState) => {
-				if (state.matches) {
-					this.elementCount === 1
-						? this.maximizeDetail()
-						: this.maximizeMaster();
-				} else {
-					this.restoreInit();
-				}
-				this.cd.markForCheck();
-			});
 	}
 	public restoreInit(): void {
 		this.masterVisible = true;

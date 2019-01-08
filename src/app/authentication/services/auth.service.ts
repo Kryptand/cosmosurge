@@ -14,7 +14,7 @@ export class AuthService {
 
 	logIn(
 		credentials: AuthCredentialsViewModel
-	): Observable<User> | Observable<never> {
+	): any{
 		if (credentials == null) {
 			return throwError('null passed to authentication');
 		}

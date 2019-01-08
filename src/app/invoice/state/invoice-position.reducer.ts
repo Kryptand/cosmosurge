@@ -2,8 +2,9 @@ import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
 import { InvoicePosition } from '../model/invoice-position.model';
 import {
 	InvoicePositionActions,
-	InvoicePositionActionTypes,
+	InvoicePositionActionTypes
 } from './invoice-position.actions';
+import { createFeatureSelector, createSelector } from '@ngrx/store';
 
 export interface State extends EntityState<InvoicePosition> {
 	// additional entities state properties
@@ -68,9 +69,17 @@ export function reducer(
 	}
 }
 
+export const selectInvoicePositions = createFeatureSelector<State>(
+	'invoicePositions'
+);
 export const {
 	selectIds,
 	selectEntities,
 	selectAll,
-	selectTotal,
-} = adapter.getSelectors();
+	selectTotal
+} = adapter.getSelectors(selectInvoicePositions);
+export const selectInvoicePosition = (id: string) =>
+	createSelector(
+		selectInvoicePositions,
+		state => state[id]
+	);

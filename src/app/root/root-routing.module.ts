@@ -6,7 +6,7 @@ import { ShellComponent } from './components/shell/shell.component';
 const routes: Routes = [
 	{
 		path: '',
-		canActivate: [AuthGuard],
+		// canActivate: [AuthGuard],
 		component: ShellComponent,
 		children: [
 			{
@@ -20,6 +20,10 @@ const routes: Routes = [
 			{
 				path: 'appointments',
 				loadChildren: '../appointment/appointment.module#AppointmentModule',
+			},
+			{
+				path: 'treatments',
+				loadChildren: '../treatment/treatment.module#TreatmentModule',
 			},
 		],
 	},

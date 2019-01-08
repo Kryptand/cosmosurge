@@ -1,31 +1,17 @@
 <form (ngSubmit)="onSubmit($event)" [formGroup]="treatmentForm">
   <ion-item>
-    <ion-input 	[class.error1]="
-    formValues.name.invalid &&
-    (formValues.name.dirty || formValues.name.touched)
-  " formControlName="name" required type="text" placeholder="Vorname"></ion-input>
-  </ion-item>
-  <ion-item no-lines *ngIf=" formValues.name.invalid &&
-  (formValues.name.dirty || formValues.name.touched)">
-    Bitte geben Sie einen Namen für die Behandlung an.
-  </ion-item>
-  <ion-item>
-    <ion-input formControlName="description" required type="text" placeholder="Nachname"></ion-input>
-  </ion-item>
-  <ion-item>
-    <ion-input [class.error1]="
-    formValues.pricePerUnit.invalid &&
-    (formValues.pricePerUnit.dirty || formValues.pricePerUnit.touched)
-  " formControlName="pricePerUnit" required type="text" placeholder="Nachname"></ion-input>
-  </ion-item>
-  <ion-item no-lines *ngIf=" formValues.pricePerUnit.invalid &&
-  (formValues.pricePerUnit.dirty || formValues.pricePerUnit.touched)">
-    Bitte geben Sie einen Preis pro Einheit an.
-  </ion-item>
-  <ion-item>
     <ion-input 
-    formControlName="pricePerUnit" required type="number" placeholder="Nachname">
+    formControlName="price" required type="number" placeholder="Nachname">
     </ion-input>
   </ion-item>
-  <ion-button type="submit" [disabled]="patientForm.invalid" size="small">Patient anlegen</ion-button>
+    <ion-item>
+      <ion-label>Behandlungstyp</ion-label>
+      <ion-select placeholder="Auswählen" (ionChange)="selectChange($event)">
+        <ng-container *ngFor="let type of treatmentTypes">
+            <ion-select-option [value]="type.id" [title]="type.description">{{type.name}}</ion-select-option>
+        </ng-container>
+      </ion-select>
+    </ion-item>
+
+  <ion-button type="submit" [disabled]="treatmentForm.invalid" size="small">Behandlung hinzufügen</ion-button>
 </form>

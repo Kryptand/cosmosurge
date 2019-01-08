@@ -6,7 +6,7 @@ import {
 } from '@angular/core';
 
 @Component({
-	selector: 'rrsoftware-detail-actionbar',
+	selector: 'kryptand-detail-actionbar',
 	templateUrl: './detail-actionbar.component.html',
 	styleUrls: ['./detail-actionbar.component.css'],
 	changeDetection: ChangeDetectionStrategy.OnPush,

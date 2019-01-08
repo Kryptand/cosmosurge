@@ -5,6 +5,8 @@ import { Treatment } from '../model/treatment.model';
 export enum TreatmentActionTypes {
 	LoadTreatments = '[Treatment] Load Treatments',
 	AddTreatment = '[Treatment] Add Treatment',
+	AddTreatmentType = '[Treatment] Add Treatment type',
+	DeleteTreatmentType = '[Treatment] Remove Treatment type',
 	UpsertTreatment = '[Treatment] Upsert Treatment',
 	AddTreatments = '[Treatment] Add Treatments',
 	UpsertTreatments = '[Treatment] Upsert Treatments',
@@ -12,7 +14,7 @@ export enum TreatmentActionTypes {
 	UpdateTreatments = '[Treatment] Update Treatments',
 	DeleteTreatment = '[Treatment] Delete Treatment',
 	DeleteTreatments = '[Treatment] Delete Treatments',
-	ClearTreatments = '[Treatment] Clear Treatments',
+	ClearTreatments = '[Treatment] Clear Treatments'
 }
 
 export class LoadTreatments implements Action {
@@ -25,6 +27,21 @@ export class AddTreatment implements Action {
 	readonly type = TreatmentActionTypes.AddTreatment;
 
 	constructor(public payload: { treatment: Treatment }) {}
+}
+
+export class AddTreatmentType implements Action {
+	readonly type = TreatmentActionTypes.AddTreatmentType;
+
+	constructor(
+		public payload: { treatmentId: string; treatmentTypeId: string }
+	) {}
+}
+export class DeleteTreatmentType implements Action {
+	readonly type = TreatmentActionTypes.DeleteTreatmentType;
+
+	constructor(
+		public payload: { treatmentId: string; treatmentTypeId: string }
+	) {}
 }
 
 export class UpsertTreatment implements Action {
@@ -76,6 +93,8 @@ export class ClearTreatments implements Action {
 export type TreatmentActions =
 	| LoadTreatments
 	| AddTreatment
+	| AddTreatmentType
+	| DeleteTreatmentType
 	| UpsertTreatment
 	| AddTreatments
 	| UpsertTreatments

@@ -1,4 +1,10 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import {
+	Component,
+	OnInit,
+	ChangeDetectionStrategy,
+	Output,
+	EventEmitter
+} from '@angular/core';
 import * as fromPatient from '../../state/patient.reducer';
 import { Store, select } from '@ngrx/store';
 import { Patient } from '../../model/patient.model';
@@ -10,9 +16,10 @@ import { ActivatedRoute } from '@angular/router';
 	selector: 'app-add-edit-patient-container',
 	templateUrl: './add-edit-patient-container.component.html',
 	styleUrls: ['./add-edit-patient-container.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush,
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AddEditPatientContainerComponent implements OnInit {
+	@Output() submitted: EventEmitter<void> = new EventEmitter();
 	patient$: Observable<Patient>;
 	constructor(
 		private store: Store<fromPatient.State>,
@@ -32,10 +39,12 @@ export class AddEditPatientContainerComponent implements OnInit {
 
 	ngOnInit() {
 		const idParam = this.route.snapshot.paramMap.get('id');
+		console.debug(idParam);
 		if (idParam !== null) {
 			this.patient$ = this.store.pipe(
 				select(fromPatient.selectPatient(idParam))
 			);
+			this.patient$.subscribe(_ => console.debug(_));
 		}
 	}
 }

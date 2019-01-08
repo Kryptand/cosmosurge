@@ -1,8 +1,8 @@
-<split [direction]="'horizontal'">
-	<split-area [visible]="masterVisible" size="30">
-		<ng-content select="rrsoftware-master-container"></ng-content>
-	</split-area>
-	<split-area [visible]="detailVisible" size="70">
-		<ng-content select="rrsoftware-detail-container"></ng-content>
-	</split-area>
-</split>
+<ion-split-pane contentId="detail">
+	<!--  our side menu  -->
+	<ng-content select="kryptand-master-container"></ng-content>
+
+	<div id="detail">
+		<ng-content select="kryptand-detail-container"></ng-content>
+	</div>
+</ion-split-pane>

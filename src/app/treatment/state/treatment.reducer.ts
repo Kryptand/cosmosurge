@@ -1,7 +1,7 @@
 import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
 import { Treatment } from '../model/treatment.model';
 import { TreatmentActions, TreatmentActionTypes } from './treatment.actions';
-import { createSelector } from '@ngrx/store';
+import { createSelector, createFeatureSelector } from '@ngrx/store';
 
 export interface State extends EntityState<Treatment> {
 	// additional entities state properties
@@ -20,7 +20,30 @@ export function reducer(state = initialState, action: TreatmentActions): State {
 		case TreatmentActionTypes.AddTreatment: {
 			return adapter.addOne(action.payload.treatment, state);
 		}
-
+		case TreatmentActionTypes.AddTreatmentType: {
+			return {
+				...state,
+				entities:{
+					...state.entities,
+					[action.payload.treatmentId]:{
+						...state.entities[action.payload.treatmentId],
+						treatmentType:action.payload.treatmentTypeId
+					}
+				}
+			};
+		}
+		case TreatmentActionTypes.DeleteTreatmentType: {
+			return {
+				...state,
+				entities:{
+					...state.entities,
+					[action.payload.treatmentId]:{
+						...state.entities[action.payload.treatmentId],
+						treatmentType:null
+					}
+				}
+			};
+		}
 		case TreatmentActionTypes.UpsertTreatment: {
 			return adapter.upsertOne(action.payload.treatment, state);
 		}
@@ -63,11 +86,16 @@ export function reducer(state = initialState, action: TreatmentActions): State {
 	}
 }
 
+export const selectTreatments = createFeatureSelector<State>('treatment');
+
 export const {
 	selectIds,
 	selectEntities,
 	selectAll,
-	selectTotal,
-} = adapter.getSelectors();
+	selectTotal
+} = adapter.getSelectors(selectTreatments);
 export const selectTreatment = (id: string) =>
-	createSelector(state => state[id]);
+	createSelector(
+		selectTreatments,
+		state => state[id]
+	);

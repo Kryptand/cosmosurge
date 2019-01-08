@@ -1,5 +1,5 @@
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
@@ -17,11 +17,12 @@ import { HttpClientModule } from '@angular/common/http';
 import { AuthenticationModule } from './authentication/authentication.module';
 import { SidebarModule } from './sidebar/sidebar.module';
 import { Camera } from '@ionic-native/camera/ngx';
+import { SharedComponentsModule } from './shared-components/shared-components.module';
 @NgModule({
 	declarations: [AppComponent],
 	entryComponents: [],
 	imports: [
-		BrowserModule,
+		BrowserAnimationsModule,
 		IonicModule.forRoot(),
 		AppRoutingModule,
 		SidebarModule,
@@ -33,6 +34,7 @@ import { Camera } from '@ionic-native/camera/ngx';
 			// Retains last 25 states
 			logOnly: environment.production, // Restrict extension to log-only mode
 		}),
+		SharedComponentsModule,
 	],
 	providers: [
 		StatusBar,

@@ -1,6 +1,7 @@
 import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
 import { Invoice } from '../model/invoice.model';
 import { InvoiceActions, InvoiceActionTypes } from './invoice.actions';
+import { createFeatureSelector, createSelector } from '@ngrx/store';
 
 export interface State extends EntityState<Invoice> {
 	selectedInvoice: string;
@@ -9,7 +10,7 @@ export interface State extends EntityState<Invoice> {
 export const adapter: EntityAdapter<Invoice> = createEntityAdapter<Invoice>();
 
 export const initialState: State = adapter.getInitialState({
-	selectedInvoice: undefined,
+	selectedInvoice: undefined
 });
 
 export function reducer(state = initialState, action: InvoiceActions): State {
@@ -22,8 +23,8 @@ export function reducer(state = initialState, action: InvoiceActions): State {
 				...state,
 				...(state.entities[action.payload.invoiceId].positions = [
 					...state.entities[action.payload.invoiceId].positions,
-					action.payload.invoicePositionId,
-				]),
+					action.payload.invoicePositionId
+				])
 			};
 		}
 		case InvoiceActionTypes.DeleteInvoicePosition: {
@@ -31,7 +32,7 @@ export function reducer(state = initialState, action: InvoiceActions): State {
 				...state,
 				...(state.entities[action.payload.invoiceId].positions = state.entities[
 					action.payload.invoiceId
-				].positions.filter(x => x !== action.payload.invoicePositionId)),
+				].positions.filter(x => x !== action.payload.invoicePositionId))
 			};
 		}
 		case InvoiceActionTypes.UpsertInvoice: {
@@ -75,10 +76,15 @@ export function reducer(state = initialState, action: InvoiceActions): State {
 		}
 	}
 }
-
+export const selectInvoices = createFeatureSelector<State>('invoices');
 export const {
 	selectIds,
 	selectEntities,
 	selectAll,
-	selectTotal,
-} = adapter.getSelectors();
+	selectTotal
+} = adapter.getSelectors(selectInvoices);
+export const selectInvoice = (id: string) =>
+	createSelector(
+		selectInvoices,
+		state => state[id]
+	);

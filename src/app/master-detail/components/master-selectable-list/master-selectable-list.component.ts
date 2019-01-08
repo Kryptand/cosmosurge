@@ -5,14 +5,14 @@ import {
 	Output,
 	EventEmitter,
 	ChangeDetectionStrategy,
+	ChangeDetectorRef
 } from '@angular/core';
-import { ComposedIdUtility } from '../../helper/composed-id-utility';
 
 @Component({
-	selector: 'rrsoftware-master-selectable-list',
+	selector: 'kryptand-master-selectable-list',
 	templateUrl: './master-selectable-list.component.html',
 	styleUrls: ['./master-selectable-list.component.css'],
-	changeDetection: ChangeDetectionStrategy.OnPush,
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MasterSelectableListComponent implements OnInit {
 	@Input() public elements: any[];
@@ -20,11 +20,25 @@ export class MasterSelectableListComponent implements OnInit {
 	@Input() public displayedProperties: string[];
 	@Output() public selected: EventEmitter<any[]> = new EventEmitter();
 	private selectedElements: any[] = [];
-	constructor() {}
+	constructor(public cd: ChangeDetectorRef) {}
 
 	public ngOnInit(): void {}
 	public selectElement(event: any, elements: any): void {
 		this.selectedElements = elements.map(el => el.value);
 		this.selected.emit(this.selectedElements);
+	}
+	public toggleVisiblity(element: any): void {
+		for (let i = 0; i < this.elements.length; i++) {
+			this.elements[i].checked = false;
+			if (this.elements[i].id === element.id) {
+				this.elements[i].checked = !element.checked;
+			}
+		}
+		if (element.checked === true) {
+			this.selected.emit([element]);
+		} else {
+			this.selected.emit([]);
+		}
+		this.cd.detectChanges();
 	}
 }

@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 
 @Component({
-	selector: 'rrsoftware-master-search',
+	selector: 'kryptand-master-search',
 	templateUrl: './master-search.component.html',
 	styleUrls: ['./master-search.component.css'],
 	changeDetection: ChangeDetectionStrategy.OnPush,

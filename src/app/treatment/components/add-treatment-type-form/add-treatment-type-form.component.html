@@ -1,0 +1,16 @@
+<form (ngSubmit)="onSubmit($event)" [formGroup]="treatmentTypeForm">
+  <ion-item>
+    <ion-input 	[class.error1]="
+    formValues.name.invalid &&
+    (formValues.name.dirty || formValues.name.touched)
+  " formControlName="name" required type="text" placeholder="Behandlung"></ion-input>
+  </ion-item>
+  <ion-item no-lines *ngIf=" formValues.name.invalid &&
+  (formValues.name.dirty || formValues.name.touched)">
+    Bitte geben Sie einen Namen für die Behandlung an.
+  </ion-item>
+  <ion-item>
+    <ion-input formControlName="description" required type="text" placeholder="Beschreibung"></ion-input>
+  </ion-item>
+  <ion-button type="submit" size="small">Behandlungstypen anlegen</ion-button>
+</form>

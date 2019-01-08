@@ -21,38 +21,43 @@ import { CommonModule } from '@angular/common';
 import { NeedsElementsDirective } from './directives/needs-elements.directive';
 import { MasterDetailConfigModel } from './token/master-detail-config.model';
 import { MasterDetailConfig } from './token/configure-master-detail.token';
+import { IonicModule } from '@ionic/angular';
+
+const MASTER_DETAIL_COMPONENTS = [
+	MasterDetailComponent,
+	DetailContainerComponent,
+	DetailActionbarComponent,
+	DetailDisplaySelectionComponent,
+	MasterContainerComponent,
+	MasterActionbarComponent,
+	MasterSearchComponent,
+	MasterSelectableListComponent,
+	NeedsElementsDirective
+];
 
 @NgModule({
-	declarations: [
-		MasterDetailComponent,
-		DetailContainerComponent,
-		DetailActionbarComponent,
-		DetailDisplaySelectionComponent,
-		MasterContainerComponent,
-		MasterActionbarComponent,
-		MasterSearchComponent,
-		MasterSelectableListComponent,
-		NeedsElementsDirective,
-	],
+	declarations: MASTER_DETAIL_COMPONENTS,
 	imports: [
 		CommonModule,
 		AngularSplitModule,
 		MatListModule,
+		IonicModule,
 		MatMenuModule,
 		StoreModule.forFeature('masterDetail', reducer),
 		MatButtonModule,
 		MatToolbarModule,
 		MatInputModule,
 		MatCheckboxModule,
-		MatIconModule,
+		MatIconModule
 	],
-	providers: [],
+	exports: MASTER_DETAIL_COMPONENTS,
+	providers: []
 })
 export class MasterDetailModule {
 	public static forRoot(config: MasterDetailConfigModel): ModuleWithProviders {
 		return {
 			ngModule: MasterDetailModule,
-			providers: [{ provide: MasterDetailConfig, useValue: config }],
+			providers: [{ provide: MasterDetailConfig, useValue: config }]
 		};
 	}
 }

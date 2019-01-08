@@ -65,6 +65,7 @@ export class AddAppointmentFormComponent implements OnInit {
 			id: null,
 			date: this.selectedDate,
 			photo: this.photo,
+			treatments:null
 		};
 		this.submitForm.emit(values);
 	}

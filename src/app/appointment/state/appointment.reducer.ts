@@ -1,10 +1,10 @@
 import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
 import {
 	AppointmentActions,
-	AppointmentActionTypes,
+	AppointmentActionTypes
 } from './appointment.actions';
 import { Appointment } from '../model/appointment.model';
-import { createSelector } from '@ngrx/store';
+import { createSelector, createFeatureSelector } from '@ngrx/store';
 
 export interface State extends EntityState<Appointment> {
 	// additional entities state properties
@@ -31,8 +31,8 @@ export function reducer(
 				...state,
 				...(state.entities[action.payload.appointmentId].treatments = [
 					...state.entities[action.payload.appointmentId].treatments,
-					action.payload.treatmentId,
-				]),
+					action.payload.treatmentId
+				])
 			};
 		}
 		case AppointmentActionTypes.DeleteTreatment: {
@@ -42,7 +42,7 @@ export function reducer(
 					action.payload.appointmentId
 				].treatments = state.entities[
 					action.payload.appointmentId
-				].treatments.filter(x => x !== action.payload.treatmentId)),
+				].treatments.filter(x => x !== action.payload.treatmentId))
 			};
 		}
 		case AppointmentActionTypes.UpsertAppointment: {
@@ -87,11 +87,15 @@ export function reducer(
 	}
 }
 
+export const selectAppointments = createFeatureSelector<State>('appointment');
 export const {
 	selectIds,
 	selectEntities,
 	selectAll,
-	selectTotal,
-} = adapter.getSelectors();
+	selectTotal
+} = adapter.getSelectors(selectAppointments);
 export const selectAppointment = (id: string) =>
-	createSelector(state => state[id]);
+	createSelector(
+		selectAppointments,
+		state => state[id]
+	);

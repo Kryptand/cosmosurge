@@ -1,7 +1,7 @@
 import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
 import { Patient } from '../model/patient.model';
 import { PatientActions, PatientActionTypes } from './patient.actions';
-import { createSelector } from '@ngrx/store';
+import { createSelector, createFeatureSelector } from '@ngrx/store';
 
 export interface State extends EntityState<Patient> {
 	selectedPatient: string;
@@ -11,6 +11,7 @@ export const adapter: EntityAdapter<Patient> = createEntityAdapter<Patient>();
 
 export const initialState: State = adapter.getInitialState({
 	selectedPatient: undefined,
+	entities: []
 });
 
 export function reducer(state = initialState, action: PatientActions): State {
@@ -23,8 +24,8 @@ export function reducer(state = initialState, action: PatientActions): State {
 				...state,
 				...(state.entities[action.payload.patientId].appointments = [
 					...state.entities[action.payload.patientId].appointments,
-					action.payload.appointmentId,
-				]),
+					action.payload.appointmentId
+				])
 			};
 		}
 		case PatientActionTypes.DeleteAppointment: {
@@ -34,7 +35,7 @@ export function reducer(state = initialState, action: PatientActions): State {
 					action.payload.patientId
 				].appointments = state.entities[
 					action.payload.patientId
-				].appointments.filter(x => x !== action.payload.appointmentId)),
+				].appointments.filter(x => x !== action.payload.appointmentId))
 			};
 		}
 		case PatientActionTypes.UpsertPatient: {
@@ -78,11 +79,19 @@ export function reducer(state = initialState, action: PatientActions): State {
 		}
 	}
 }
-
+export const selectPatients = createFeatureSelector<State>('patient');
 export const {
 	selectIds,
 	selectEntities,
 	selectAll,
-	selectTotal,
-} = adapter.getSelectors();
-export const selectPatient = (id: string) => createSelector(state => state[id]);
+	selectTotal
+} = adapter.getSelectors(selectPatients);
+export const filterPatient = (term: string) =>
+	createSelector(
+		selectAll,
+		(patient: Patient[]) =>
+			patient.filter(
+				x => x.firstName.indexOf(term) > -1 || x.lastName.indexOf(term) > -1
+			)
+	);
+export const selectPatient = (id: string) => createSelector(selectAll,	(patient: Patient[]) =>patient.find(x=>x.id===id));

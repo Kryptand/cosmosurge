@@ -15,7 +15,7 @@ import { Store } from '@ngrx/store';
 import * as fromMasterDetail from '../../state/master-detail.reducer';
 
 @Component({
-	selector: 'rrsoftware-detail-container',
+	selector: 'kryptand-detail-container',
 	templateUrl: './detail-container.component.html',
 	styleUrls: ['./detail-container.component.css'],
 	changeDetection: ChangeDetectionStrategy.OnPush,

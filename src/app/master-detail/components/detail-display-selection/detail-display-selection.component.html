@@ -1,4 +1,4 @@
-<div class="center">
+<!-- <div class="center">
 
   <ng-container *ngIf="elementCount===0" @ngIfAnimation>
   <mat-icon>{{areaIcon}}</mat-icon>
@@ -7,7 +7,8 @@
   </div>
 </ng-container>
 <ng-container *ngIf="elementCount===1" @ngIfAnimation>
-
+  BLABLABLA
+  <ng-content></ng-content>
 </ng-container>
 <ng-container *ngIf="elementCount>1" @ngIfAnimation>
     <mat-icon>{{areaIcon}}</mat-icon>
@@ -15,4 +16,7 @@
     <div class="area-actions">
     </div>
 </ng-container>
-</div>
+</div> -->
+<ng-content>
+  
+</ng-content>

@@ -1,3 +1,5 @@
 <ion-card>
-  <app-add-treatment-form (submitForm)="saveTreatment($event)" [treatment]="treatment$|async" ></app-add-treatment-form>
+  <app-add-treatment-form (submitForm)="saveTreatment($event)" [treatment]="treatment$|async" [treatmentTypes]="treatmentTypes$|async"></app-add-treatment-form>
+  <app-botox-face-treatment>
+  </app-botox-face-treatment>
 </ion-card>

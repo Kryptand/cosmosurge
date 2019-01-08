@@ -16,7 +16,7 @@ import {
 } from '@angular/animations';
 
 @Component({
-	selector: 'rrsoftware-detail-display-selection',
+	selector: 'kryptand-detail-display-selection',
 	templateUrl: './detail-display-selection.component.html',
 	styleUrls: ['./detail-display-selection.component.css'],
 	changeDetection: ChangeDetectionStrategy.OnPush,

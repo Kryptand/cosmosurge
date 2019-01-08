@@ -12,7 +12,7 @@ const routes: Routes = [
 	{
 		path: '',
 		loadChildren: './root/root.module#RootModule',
-		canActivate: [AuthGuard],
+		// canActivate: [AuthGuard],
 	},
 ];
 @NgModule({

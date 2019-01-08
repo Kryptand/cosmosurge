@@ -6,13 +6,15 @@ import {
 	ContentChild,
 	Input,
 	OnInit,
+	OnChanges,
+	SimpleChanges
 } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { MasterSelectableListComponent } from '../../components/master-selectable-list/master-selectable-list.component';
 import * as fromMasterDetail from '../../state/master-detail.reducer';
 import {
 	ConfigureIdentifier,
-	SelectEntities,
+	SelectEntities
 } from '../../state/master-detail.actions';
 /**
  * shell for master-list, master-search and master actiobar
@@ -23,12 +25,13 @@ import {
  * @implements {AfterContentInit}
  */
 @Component({
-	selector: 'rrsoftware-master-container',
+	selector: 'kryptand-master-container',
 	templateUrl: './master-container.component.html',
 	styleUrls: ['./master-container.component.css'],
-	changeDetection: ChangeDetectionStrategy.OnPush,
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MasterContainerComponent implements OnInit, AfterContentInit {
+export class MasterContainerComponent
+	implements OnInit, AfterContentInit, OnChanges {
 	@Input() public elements: any[];
 	@Input() public elementIdentifier: string | string[];
 	@Input() public displayedProperties: string[];
@@ -50,11 +53,19 @@ export class MasterContainerComponent implements OnInit, AfterContentInit {
 				'There are either no elements provided or no element identifiers are configured'
 			);
 		}
-		this.store.dispatch(
-			new ConfigureIdentifier({ identifier: this.elementIdentifier })
-		);
+		if (this.elements.length) {
+			this.store.dispatch(
+				new ConfigureIdentifier({ identifier: this.elementIdentifier })
+			);
+		}
 	}
-
+	public ngOnChanges(changes: SimpleChanges) {
+		console.debug(changes);
+		if (changes.elements.previousValue !== changes.elements.currentValue) {
+			this.list.elements=this.elements;
+			this.list.cd.markForCheck();
+			}
+	}
 	public ngAfterContentInit(): void {
 		if (this.elements == null || this.displayedProperties == null) {
 			throw new Error(

@@ -1,3 +1,25 @@
-<p>
-  patient-overview-container works!
-</p>
+<kryptand-master-detail>
+	<kryptand-master-container
+		[elements]="(patients$ | async)?.length ? (patients$|async) : []"
+		[displayedProperties]="['firstName','lastName']"
+    elementIdentifier="id"
+	>
+		<kryptand-master-actionbar>
+			<div class="flex">
+				Patienten <span class="spacer"></span>
+				<button mat-button><mat-icon>delete</mat-icon></button>
+				<button mat-button [routerLink]="['./add']"><mat-icon>person_add</mat-icon></button>
+			</div>
+		</kryptand-master-actionbar>
+		<kryptand-master-search>
+			<app-search-input (searchEmitted)="termChanged($event)"></app-search-input>
+		</kryptand-master-search>
+		<kryptand-master-selectable-list (selected)="selectionChange($event)"> </kryptand-master-selectable-list>
+	</kryptand-master-container>
+	<kryptand-detail-container>
+		<kryptand-detail-actionbar></kryptand-detail-actionbar>
+		<kryptand-detail-display-selection>
+        <router-outlet></router-outlet>  
+    </kryptand-detail-display-selection>
+	</kryptand-detail-container>
+</kryptand-master-detail>
